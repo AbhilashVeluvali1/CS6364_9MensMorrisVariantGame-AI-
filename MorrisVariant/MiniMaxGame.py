@@ -3,34 +3,35 @@ import Helper as hlpr
 import StaticEstimations as sts
 import InputOutputHelper as io
 
-
-def miniMax(board, depth, final_position, isMax):
+def maxMin(board, depth, finalPosition):
+    maxEval = float('-inf')
+    for boardPositions in hlpr.generateMovesMidGameEndGame(board):
+        val = miniMax(boardPositions, depth - 1, finalPosition, False)
+        if val[0] > maxEval:
+            maxEval = val[0]
+            finalPosition = boardPositions
+    return maxEval, finalPosition
+   
+def minMax(board, depth, finalPosition):
+    minEval = float('inf')
+    for position in hlpr.generateMovesMidGameEndGameBlack(board):
+        val = miniMax(position, depth - 1, finalPosition, True)
+        if val[0] < minEval:
+            minEval = val[0]
+            finalPosition = val[1]
+    return minEval, finalPosition
+   
+   
+def miniMax(board, depth, finalPosition, isMax):
+    if depth == 0:
+            hlpr.positionsEvaluated += 1
+            return sts.staticEstimateMidGameEndGame(board), board
     if isMax:
-        if depth == 0:
-            hlpr.positionsEvaluated += 1
-            return sts.staticEstimateMidGameEndGame(board), board
-        else:
-            max_eval = float('-inf')
-            for board_position in hlpr.generateMovesMidGameEndGame(board):
-                val = miniMax(board_position, depth - 1, final_position, False)
-                if val[0] > max_eval:
-                    max_eval = val[0]
-                    final_position = board_position
-            return max_eval, final_position
+        return maxMin(board, depth, finalPosition)
     else:
-        if depth == 0:
-            hlpr.positionsEvaluated += 1
-            return sts.staticEstimateMidGameEndGame(board), board
-        else:
-            min_eval = float('inf')
-            for position in hlpr.generateMovesMidGameEndGameBlack(board):
-                val = miniMax(position, depth - 1, final_position, True)
-                if val[0] < min_eval:
-                    min_eval = val[0]
-                    final_position = val[1]
-            return min_eval, final_position
-
-
+        return minMax(board, depth, finalPosition)
+        
+        
   
 if __name__ == "__main__":
         inputBoardFile = io.readInputFile(sys.argv[1])

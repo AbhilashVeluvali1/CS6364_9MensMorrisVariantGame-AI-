@@ -2,30 +2,33 @@ import sys
 import Helper as hlpr
 import StaticEstimations as sts
 import InputOutputHelper as io
+    
+def maxMin(board, depth, finalPosition):
+        maxEval = float('-inf')
+        for board_position in hlpr.generateMovesOpening(board):
+                val = miniMaxOpening(board_position, depth - 1, finalPosition, False)
+                if val[0] > maxEval:
+                        maxEval = val[0]
+                        finalPosition = board_position
+        return maxEval, finalPosition
 
-def miniMax(board, depth, final_position, isMax):
-    if depth == 0:
-            hlpr.positionsEvaluated += 1
-            return sts.staticEstimateOpening(board), board
-    if isMax:
+def minMax(board, depth, finalPosition):
+        minEval = float('inf')
+        for position in hlpr.generateMovesOpeningBlack(board):
+                val = miniMaxOpening(position, depth - 1, finalPosition, True)
+                if val[0] < minEval:
+                        minEval = val[0]
+                        finalPosition = val[1]
+        return minEval, finalPosition
 
-            max_eval = float('-inf')
-            for board_position in hlpr.generateMovesOpening(board):
-                val = miniMax(board_position, depth - 1, final_position, False)
-                if val[0] > max_eval:
-                    max_eval = val[0]
-                    final_position = board_position
-            return max_eval, final_position
-    else:
-        
-            min_eval = float('inf')
-            for position in hlpr.generateMovesOpeningBlack(board):
-                val = miniMax(position, depth - 1, final_position, True)
-                if val[0] < min_eval:
-                    min_eval = val[0]
-                    final_position = val[1]
-            return min_eval, final_position
-
+def miniMaxOpening(board, depth, finalPosition, isMax):
+        if depth == 0:
+                hlpr.positionsEvaluated += 1
+                return sts.staticEstimateOpening(board), board
+        if isMax:
+                return maxMin(board, depth, finalPosition)
+        else:
+                return minMax(board, depth, finalPosition)
         
 
 if __name__ == "__main__":
@@ -34,5 +37,5 @@ if __name__ == "__main__":
         depth = int(sys.argv[3])
         output = []
         resultantPosition = []
-        output = miniMax(inputBoardFile, depth, resultantPosition, True)
+        output = miniMaxOpening(inputBoardFile, depth, resultantPosition, True)
         io.writeOutput(outputBoardFile, output[1] , hlpr.positionsEvaluated  , output[0] )

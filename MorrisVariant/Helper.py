@@ -16,132 +16,131 @@ def generateAdd(postions):
     return allList
 
 #CloseMill method
-def closeMill(loc, copyBoard):
-    c = copyBoard[loc]
-    
+def closeMill(loc, pos):
+    c = pos[loc] 
     if c == 'W' or c == 'B':
         if loc == 0:
-            if (copyBoard[6] == c and copyBoard[18] == c):
+            if (pos[6] == c and pos[18] == c):
                 return True
             else:
                 return False  # a0
-        elif   loc == 1:
-            if(copyBoard[11] == c and copyBoard[20]== c):
+        elif loc == 1:
+            if(pos[11] == c and pos[20]== c):
                 return True
             else: 
                 return False
         elif loc == 2:
-            if (copyBoard[7] == c and copyBoard[15] == c):
+            if (pos[7] == c and pos[15] == c):
                 return True
             else:
                 return False  # b1
         elif   loc == 3:
-            if(copyBoard[10] == c and copyBoard[17]==c):
+            if(pos[10] == c and pos[17]==c):
                 return True
             else:
                 return False
         elif loc == 4:
-            if (copyBoard[8] == c and copyBoard[12] == c):
+            if (pos[8] == c and pos[12] == c):
                 return True
             else:
                 return False  # c2
         elif loc == 5:
-            if copyBoard[9] == c and copyBoard[14] == c:
+            if pos[9] == c and pos[14] == c:
                 return True
             else:
                 return False
         elif loc == 6:
-            if (copyBoard[7] == c and copyBoard[8] == c) or (copyBoard[0] == c and copyBoard[18] == c):
+            if (pos[7] == c and pos[8] == c) or (pos[0] == c and pos[18] == c):
                 return True
             else:
                 return False  # a3
         elif loc == 7:
-            if (copyBoard[6] == c and copyBoard[8] == c) or (copyBoard[2] == c and copyBoard[15] == c):
+            if (pos[6] == c and pos[8] == c) or (pos[2] == c and pos[15] == c):
                 return True
             else:
                 return False  # b3
         elif loc == 8:
-            if (copyBoard[6] == c and copyBoard[7] == c) or (copyBoard[4] == c and copyBoard[12] == c):
+            if (pos[6] == c and pos[7] == c) or (pos[4] == c and pos[12] == c):
                 return True
             else:
                 return False  # c3
         elif   loc == 9:
-            if(copyBoard[5] == c and copyBoard[14]==c) or (copyBoard[10] == c and copyBoard[12] == c):
+            if(pos[5] == c and pos[14]==c) or (pos[10] == c and pos[12] == c):
                 return True
             else:
                 return False
         elif   loc == 10:
-            if(copyBoard[3] == c and copyBoard[17]==c) or (copyBoard[9] == c and copyBoard[11] == c):
+            if(pos[3] == c and pos[17]==c) or (pos[9] == c and pos[11] == c):
                 return True
             else:
                 return False
         elif   loc == 11:
-            if(copyBoard[1] == c and copyBoard[20]==c) or (copyBoard[9] == c and copyBoard[10] == c):
+            if(pos[1] == c and pos[20]==c) or (pos[9] == c and pos[10] == c):
                 return True
             else:
                 return False
         elif loc == 12:
-            if (copyBoard[4] == c and copyBoard[8] == c) or (copyBoard[13] == c and copyBoard[14] == c):
+            if (pos[4] == c and pos[8] == c) or (pos[13] == c and pos[14] == c):
                 return True
             else:
                 return False  # c4
         elif loc == 13:
-            if (copyBoard[12] == c and copyBoard[14] == c) or (copyBoard[16] == c and copyBoard[19] == c):
+            if (pos[12] == c and pos[14] == c) or (pos[16] == c and pos[19] == c):
                 return True
             else:
                 return False  # d4
         elif   loc == 14:
-            if(copyBoard[5] == c and copyBoard[9]==c) or (copyBoard[12] == c and copyBoard[13] == c):
+            if(pos[5] == c and pos[9]==c) or (pos[12] == c and pos[13] == c):
                 return True
             else:
                 return False
         elif loc == 15:
-            if (copyBoard[7] == c and copyBoard[2] == c) or (copyBoard[16] == c and copyBoard[17] == c):
+            if (pos[7] == c and pos[2] == c) or (pos[16] == c and pos[17] == c):
                 return True
             else:
                 return False  # b5
         elif loc == 16:
-            if (copyBoard[13] == c and copyBoard[19] == c) or (copyBoard[15] == c and copyBoard[17] == c):
+            if (pos[13] == c and pos[19] == c) or (pos[15] == c and pos[17] == c):
                 return True
             else:
                 return False  # d5
         elif   loc == 17:
-            if(copyBoard[3] == c and copyBoard[10]==c) or (copyBoard[15] == c and copyBoard[16] == c):
+            if(pos[3] == c and pos[10]==c) or (pos[15] == c and pos[16] == c):
                 return True
             else:
                 return False
         elif loc == 18:
-            if (copyBoard[0] == c and copyBoard[6] == c) or (copyBoard[19] == c and copyBoard[20] == c):
+            if (pos[0] == c and pos[6] == c) or (pos[19] == c and pos[20] == c):
                 return True
             else:
                 return False  # a6
         elif loc == 19:
-            if (copyBoard[13] == c and copyBoard[16] == c) or (copyBoard[18] == c and copyBoard[20] == c):
+            if (pos[13] == c and pos[16] == c) or (pos[18] == c and pos[20] == c):
                 return True
             else:
                 return False  # d6
         elif   loc == 20:
-            if(copyBoard[1] == c and copyBoard[11]==c) or (copyBoard[18] == c and copyBoard[19] == c):
+            if(pos[1] == c and pos[11]==c) or (pos[18] == c and pos[19] == c):
                 return True
             else:
                 return False
         
 #GenerateRemove Method
 def generateRemove(b, lst):
-    grList = lst.copy()
+    rmvList = lst.copy()
     for i in range(len(b)):
         cbo =b
         if b[i] == 'B':
             if not closeMill(i, b):
                 cbo[i] = 'x'
-                grList.append(cbo)
+                rmvList.append(cbo)
             else:
-                grList.append(cbo)
-    return grList
+                rmvList.append(cbo)
+    return rmvList
 
 #GenerateMoves Method
 def generateMove(x):
-    gmList = []
+    mvList = []
     copyBoard = x.copy()
     for i in range(len(x)):
         if x[i] == 'W':
@@ -152,11 +151,10 @@ def generateMove(x):
                     copyBoard[i] = 'x'
                     copyBoard[j] = 'W'
                     if closeMill(j, copyBoard):
-                        #gmList.append(generateRemove(copyBoard, gmList))
-                        generateRemove(copyBoard, gmList)
+                        generateRemove(copyBoard, mvList)
                     else:
-                        gmList.append(copyBoard)
-    return gmList
+                        mvList.append(copyBoard)
+    return mvList
 
 #Findout Neighbours
 def neighbours(j):
@@ -207,7 +205,7 @@ def neighbours(j):
 
 #Generate Hopping
 def generateHopping(x):
-    ghList = []
+    hpgList = []
     copyBoard = x.copy()
     for i in range(len(x)):
         if x[i] == 'W':
@@ -217,15 +215,16 @@ def generateHopping(x):
                     copyBoard[i] = 'x'
                     copyBoard[j] = 'W'
                     if closeMill(j, copyBoard):
-                        #ghList.append(generateRemove(copyBoard, ghList))
-                        generateRemove(copyBoard, ghList)
+                        generateRemove(copyBoard, hpgList)
                     else:
-                        ghList.append(copyBoard)
-    return ghList
+                        hpgList.append(copyBoard)
+    return hpgList
 
+#Generate Moves opening method
 def generateMovesOpening(postions) :
     return generateAdd(postions)
 
+#Generate Moves midgame endgame method
 def generateMovesMidGameEndGame(position):
     count= 0
     for i in range(len(position)):
@@ -238,13 +237,13 @@ def generateMovesMidGameEndGame(position):
 
 #swap white to black or black to white
 def swapWB(x):
-    lboard = x.copy()
-    for i in range(len(lboard)):
-        if lboard[i] == 'W':
-            lboard[i] = 'B'
-        elif lboard[i] == 'B':
-            lboard[i] = 'W'
-    return lboard
+    board = x.copy()
+    for i in range(len(board)):
+        if board[i] == 'W':
+            board[i] = 'B'
+        elif board[i] == 'B':
+            board[i] = 'W'
+    return board
 
 #count the no of whites/ blacks 
 def getCount(positions, color):
@@ -276,11 +275,10 @@ def generateMovesMidGameEndGameBlack(positions):
 #Count the no of black closed mills
 def countBMills(positions):
     cnt = 0
-    for i in range(0,len(positions)):
-        for j in range(0, len(i)):
-            if(positions[j] == "B"):
-                if(closeMill(i,positions)== True):
-                    cnt+=1
+    for i in range(len(positions)):
+        if(positions[i] == "B"):
+            if(closeMill(i,positions)== True):
+                cnt+=1
     return cnt
 
 

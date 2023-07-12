@@ -7,5 +7,6 @@ def writeOutput(outputFileName, boardPosition, positionEvaluated, staticEstimate
     print('Board Position :', boardPosition)
     print('Positions evaluated by Static Estimation :', positionEvaluated)
     print('MINIMAX estimate :', staticEstimate)
-    # with open(outputFileName, 'w') as f:
-    #     f.write(list(boardPosition))
+    list = ''.join(boardPosition)
+    with open(outputFileName, 'w') as file:
+        file.writelines(list)
